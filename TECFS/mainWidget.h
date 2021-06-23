@@ -1,6 +1,8 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include "TcpClient.h"
+
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -19,6 +21,10 @@ private slots:
     void on_storeBooks_clicked();
 
     void on_searchBooks_clicked();
+
+public:
+    TcpClient *client = new TcpClient();
+    void sendBook(QString);
 
 private:
     Ui::Widget *ui;

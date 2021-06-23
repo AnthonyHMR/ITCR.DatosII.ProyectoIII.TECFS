@@ -2,7 +2,6 @@
 #include "ui_mainWidget.h"
 #include "storeBooksWidget.h"
 #include "searchBooksWidget.h"
-#include "TcpClient.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -10,7 +9,7 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    TcpClient *client = new TcpClient();
+    client = new TcpClient();
     client->Connect();
 }
 
@@ -23,6 +22,7 @@ Widget::~Widget()
 void Widget::on_storeBooks_clicked()
 {
     storeBooksWidget D(this);
+    D.setClient(client);
     if (D.exec() == QDialog::Rejected) {
         return;
     }
