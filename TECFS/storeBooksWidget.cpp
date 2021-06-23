@@ -26,7 +26,7 @@ void storeBooksWidget::on_openFile_clicked()
                 this,
                 "TextEditor - Open file",
                 "/home/anthony/Documents",
-                "Text Files (*.pdf);;All Files (*.*)"
+                "Text Files (*.txt);;All Files (*.*)"
                 );
     if(!fileName.isEmpty()){
         QFile file(fileName);
