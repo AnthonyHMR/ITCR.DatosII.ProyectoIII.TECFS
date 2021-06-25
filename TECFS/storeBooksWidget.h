@@ -28,6 +28,7 @@ public:
 private:
     Ui::storeBooksWidget *ui;
     TcpClient *client;
+    int count = 1;
 };
 
 #endif // STOREBOOKSWIDGET_H

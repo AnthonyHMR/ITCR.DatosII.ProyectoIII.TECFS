@@ -18,7 +18,6 @@ Widget::~Widget()
     delete ui;
 }
 
-
 void Widget::on_storeBooks_clicked()
 {
     storeBooksWidget D(this);

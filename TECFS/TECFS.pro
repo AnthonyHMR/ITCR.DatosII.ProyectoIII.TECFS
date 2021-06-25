@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     TcpClient.cpp \
+    jsonConverter.cpp \
     main.cpp \
     mainWidget.cpp \
     searchBooksWidget.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     TcpClient.h \
+    jsonConverter.h \
     mainWidget.h \
     searchBooksWidget.h \
     storeBooksWidget.h

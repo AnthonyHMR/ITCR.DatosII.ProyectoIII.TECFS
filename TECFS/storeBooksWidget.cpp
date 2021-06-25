@@ -5,6 +5,7 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QJsonObject>
 
 extern Widget *widget;
 
@@ -45,7 +46,27 @@ void storeBooksWidget::on_openFile_clicked()
 
 void storeBooksWidget::on_saveFile_clicked()
 {
-    client->sendMessage(ui->plainTextEdit->toPlainText());
+    QByteArray data_json;
+    QJsonDocument doc;
+    QJsonObject typeObj;
+    QJsonObject obj;
+
+    obj["ID"] = count;
+    obj["Title"] = "Prueba Titulo";
+    obj["Author"] = "Prueba Autor";
+    obj["Date"] = "Prueba Fecha";
+    obj["Info"] = ui->plainTextEdit->toPlainText();
+
+    typeObj["Book"] = obj;
+
+    doc.setObject(typeObj);
+    data_json = doc.toJson();
+
+    client->sendMessage(data_json);
+
+    count++;
+
+    QMessageBox::information(this, tr("Information"), tr("Your book has been saved"));
 }
 
 void storeBooksWidget::setClient(TcpClient *entry)
