@@ -23,7 +23,7 @@ storeBooksWidget::~storeBooksWidget()
 
 void storeBooksWidget::on_openFile_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(
+    fileName = QFileDialog::getOpenFileName(
                 this,
                 "TextEditor - Open file",
                 "/home/anthony/Documents",
@@ -46,13 +46,18 @@ void storeBooksWidget::on_openFile_clicked()
 
 void storeBooksWidget::on_saveFile_clicked()
 {
+    QRegExp lines("(\\/|\\.txt)");
+
+    QStringList titlePath = fileName.split(lines);
+    titlePath.removeAll("");
+
     QByteArray data_json;
     QJsonDocument doc;
     QJsonObject typeObj;
     QJsonObject obj;
 
     obj["ID"] = count;
-    obj["Title"] = "Prueba Titulo";
+    obj["Title"] = titlePath.last();
     obj["Author"] = "Prueba Autor";
     obj["Date"] = "Prueba Fecha";
     obj["Info"] = ui->plainTextEdit->toPlainText();
@@ -66,7 +71,7 @@ void storeBooksWidget::on_saveFile_clicked()
 
     count++;
 
-    QMessageBox::information(this, tr("Information"), tr("Your book has been saved"));
+    QMessageBox::information(this, tr("Information"), tr("Your book has been saved!"));
 }
 
 void storeBooksWidget::setClient(TcpClient *entry)

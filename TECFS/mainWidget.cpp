@@ -30,6 +30,7 @@ void Widget::on_storeBooks_clicked()
 void Widget::on_searchBooks_clicked()
 {
     searchBooksWidget D(this);
+    D.setClient(client);
     if (D.exec() == QDialog::Rejected) {
         return;
     }

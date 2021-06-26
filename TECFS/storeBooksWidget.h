@@ -29,6 +29,7 @@ private:
     Ui::storeBooksWidget *ui;
     TcpClient *client;
     int count = 1;
+    QString fileName;
 };
 
 #endif // STOREBOOKSWIDGET_H
