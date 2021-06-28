@@ -27,7 +27,7 @@ void storeBooksWidget::on_openFile_clicked()
     fileName = QFileDialog::getOpenFileName(
                 this,
                 "TextEditor - Open file",
-                "/home/anthony/Documents",
+                "/home",
                 "Text Files (*.txt);;All Files (*.*)"
                 );
     if(!fileName.isEmpty()){

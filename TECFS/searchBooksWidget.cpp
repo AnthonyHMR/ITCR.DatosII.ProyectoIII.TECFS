@@ -1,5 +1,6 @@
 #include "searchBooksWidget.h"
 #include "ui_searchBooksWidget.h"
+#include "form.h"
 
 #include <QDebug>
 #include <QJsonArray>
@@ -34,8 +35,6 @@ void searchBooksWidget::on_searchButton_clicked()
 
     client->sendMessage(data_json);
 
-    int count = 90;
-
     QJsonObject results = json->getJsonObjectFromString(client->getMessage());
 
     QJsonArray arrayResults = results["Results"].toArray();
@@ -55,11 +54,12 @@ void searchBooksWidget::setClient(TcpClient *entry)
 
 void searchBooksWidget::on_openButton_clicked()
 {
-    QRegExp lines("(\\))");
+    QRegExp lines("(\\)|\\:|\\|)");
 
     QString currentLine = ui->listWidget->currentItem()->text();
 
     QStringList file = currentLine.split(lines);
+    file.removeAll("");
 
     QByteArray data_json;
     QJsonDocument doc;
@@ -71,4 +71,12 @@ void searchBooksWidget::on_openButton_clicked()
     data_json = doc.toJson();
 
     client->sendMessage(data_json);
+
+    qDebug() << client->getMessage();
+
+    Form D(this);
+    D.setText(file[2], "prueba");
+    if (D.exec() == QDialog::Rejected) {
+        return;
+    }
 }
