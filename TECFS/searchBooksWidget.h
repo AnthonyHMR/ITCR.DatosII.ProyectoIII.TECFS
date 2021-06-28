@@ -20,6 +20,8 @@ public:
 private slots:
     void on_searchButton_clicked();
 
+    void on_openButton_clicked();
+
 public:
     void setClient(TcpClient *);
 

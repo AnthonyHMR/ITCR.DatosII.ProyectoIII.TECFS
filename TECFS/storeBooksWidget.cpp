@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QJsonObject>
+#include <QDateTime>
 
 extern Widget *widget;
 
@@ -55,11 +56,13 @@ void storeBooksWidget::on_saveFile_clicked()
     QJsonDocument doc;
     QJsonObject typeObj;
     QJsonObject obj;
+    QDateTime date = QDateTime::currentDateTime();
+    QString format = "yyyy/MM/dd HH:mm:ss";
 
     obj["ID"] = count;
     obj["Title"] = titlePath.last();
     obj["Author"] = "Prueba Autor";
-    obj["Date"] = "Prueba Fecha";
+    obj["Date"] = date.toString(format);
     obj["Info"] = ui->plainTextEdit->toPlainText();
 
     typeObj["Book"] = obj;
