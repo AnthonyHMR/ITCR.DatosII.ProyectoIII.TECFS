@@ -1,6 +1,9 @@
 #include "searchBooksWidget.h"
 #include "ui_searchBooksWidget.h"
 
+#include <QDebug>
+#include <QJsonArray>
+
 searchBooksWidget::searchBooksWidget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::searchBooksWidget)
@@ -15,6 +18,7 @@ searchBooksWidget::~searchBooksWidget()
 
 void searchBooksWidget::on_searchButton_clicked()
 {
+    ui->listWidget->clear();
     QByteArray data_json;
     QJsonDocument doc;
     QJsonObject obj;
@@ -30,7 +34,18 @@ void searchBooksWidget::on_searchButton_clicked()
 
     client->sendMessage(data_json);
 
-    ui->listWidget->addItem("prueba");
+    int count = 90;
+
+    QJsonObject results = json->getJsonObjectFromString(client->getMessage());
+
+    QJsonArray arrayResults = results["Results"].toArray();
+
+    for (int i = 0; arrayResults.size() != i; i++) {
+        QJsonObject res = arrayResults[i].toObject();
+        ui->listWidget->addItem( QString::number(res["ID"].toInt()) + ") " + res["Author"].toString() + ": " + res["Title"].toString() + " | " + res["Date"].toString());
+    }
+
+    qDebug() << client->getMessage();
 }
 
 void searchBooksWidget::setClient(TcpClient *entry)
@@ -40,5 +55,20 @@ void searchBooksWidget::setClient(TcpClient *entry)
 
 void searchBooksWidget::on_openButton_clicked()
 {
-    QString test = ui->listWidget->currentItem()->text();
+    QRegExp lines("(\\))");
+
+    QString currentLine = ui->listWidget->currentItem()->text();
+
+    QStringList file = currentLine.split(lines);
+
+    QByteArray data_json;
+    QJsonDocument doc;
+    QJsonObject obj;
+
+    obj["File"] = file.first().toInt();
+
+    doc.setObject(obj);
+    data_json = doc.toJson();
+
+    client->sendMessage(data_json);
 }

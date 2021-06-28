@@ -56,12 +56,12 @@ void storeBooksWidget::on_saveFile_clicked()
     QJsonDocument doc;
     QJsonObject typeObj;
     QJsonObject obj;
-    QDateTime date = QDateTime::currentDateTime();
-    QString format = "yyyy/MM/dd HH:mm:ss";
+    QDate date = QDate::currentDate();
+    QString format = "yyyy/MM/dd";
 
     obj["ID"] = count;
     obj["Title"] = titlePath.last();
-    obj["Author"] = "Prueba Autor";
+    obj["Author"] = "anthony";
     obj["Date"] = date.toString(format);
     obj["Info"] = ui->plainTextEdit->toPlainText();
 

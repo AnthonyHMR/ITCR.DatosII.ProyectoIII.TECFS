@@ -4,6 +4,7 @@
 #include "TcpClient.h"
 
 #include <QDialog>
+#include <jsonConverter.h>
 
 namespace Ui {
 class searchBooksWidget;
@@ -28,6 +29,7 @@ public:
 private:
     Ui::searchBooksWidget *ui;
     TcpClient *client;
+    jsonConverter *json;
 };
 
 #endif // SEARCHBOOKSWIDGET_H
